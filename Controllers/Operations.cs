@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using PROG6212_PART2_ST10396724.Data;
 using PROG6212_PART2_ST10396724.Models;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace PROG6212_PART2_ST10396724.Controllers
 {
     public class Operations : Controller
     {
-
         private readonly AppDbContext _context;
         private readonly ILogger<Operations> _logger;
 
@@ -41,7 +42,6 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 }
                 return View("~/Views/Home/AddUser.cshtml", lecturer);
             }
-
         }
 
         public IActionResult ClaimTrack()
@@ -67,7 +67,6 @@ namespace PROG6212_PART2_ST10396724.Controllers
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the claim.");
                 }
             }
-
             else
             {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
@@ -130,7 +129,6 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 return View("~/Views/Home/ProgCoOrdinator.cshtml", progCoOrdinator);
             }
         }
-
 
         [HttpGet]
         public IActionResult ClaimApproval()
@@ -201,5 +199,79 @@ namespace PROG6212_PART2_ST10396724.Controllers
             return View("~/Views/Home/ClaimStatusView.cshtml", model);
         }
 
+       
+        
+
+        [HttpGet]
+        public IActionResult Upload()
+        {
+            return View("~/Views/Home/UploadFile.cshtml", new Document());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upload(Document model, IFormFile file)
+        {
+            if (ModelState.IsValid)
+            {
+                if (file != null && file.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(memoryStream);
+                        model.FileBinary = memoryStream.ToArray();
+                    }
+
+                    model.FileName = file.FileName;
+                }
+                else
+                {
+                    _logger.LogError("File is null or empty.");
+                    ModelState.AddModelError(string.Empty, "File is required.");
+                    return View("~/Views/Home/UploadFile.cshtml", model);
+                }
+
+                try
+                {
+                    _context.document.Add(model);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation("Document saved successfully.");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error saving document.");
+                    ModelState.AddModelError(string.Empty, "An error occurred while saving the document.");
+                    return View("~/Views/Home/UploadFile.cshtml", model);
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                _logger.LogError(error.ErrorMessage);
+            }
+
+            return View("~/Views/Home/UploadFile.cshtml", model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var documents = await _context.document.ToListAsync();
+            return View("~/Views/Home/Index.cshtml", documents);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Download(int id)
+        {
+            var document = await _context.document.FindAsync(id);
+            if (document == null)
+            {
+                return NotFound();
+            }
+
+            return File(document.FileBinary, "application/octet-stream", document.FileName);
+        }
     }
 }

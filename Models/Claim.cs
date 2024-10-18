@@ -17,6 +17,8 @@ namespace PROG6212_PART2_ST10396724.Models
 
              public string ApprovalStatus { get; set; } = "Pending"; // Initialized with a default value
 
+
+
          
         
 
@@ -34,6 +36,8 @@ namespace PROG6212_PART2_ST10396724.Models
             public Lecturer? lecturer { get; set; }
 
         private ICollection<ClaimApproval> claimApprovals { get; set; } = new List<ClaimApproval>();
+
+       public ICollection<Document> documentsClaim { get; set; } = new List<Document>();
 
 
     }

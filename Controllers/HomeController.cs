@@ -21,48 +21,6 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
        
 
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateClaim(Claim claim)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.claims.Add(claim);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(ClaimTrack));
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error creating claim");
-                    ModelState.AddModelError(string.Empty, "An error occurred while saving the claim.");
-                }
-            }
-            return View("ClaimTrack", claim);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveTest(test testModel)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.tests.Add(testModel);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Privacy", "Home");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error saving test model");
-                    ModelState.AddModelError(string.Empty, "An error occurred while saving the data.");
-                }
-            }
-            return View("Privacy", testModel);
-        }
-       */
 
         public IActionResult Index()
         {

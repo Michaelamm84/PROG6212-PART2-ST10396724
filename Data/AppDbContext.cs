@@ -19,6 +19,8 @@ namespace PROG6212_PART2_ST10396724.Data
 
         public DbSet<ClaimApproval> claimApproval { get; set; }
 
+        public DbSet<Document> document { get; set; }   
+
         //public DbSet<ClaimStatusViewModel> claimStatusViewModel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,7 +54,21 @@ namespace PROG6212_PART2_ST10396724.Data
                 .HasForeignKey(ca => ca.AcademicManagerID) // Foreign key in ClaimApproval is LecturerID
                 .OnDelete(DeleteBehavior.Restrict); // Specify ON DELETE NO ACTION
 
-            
+
+            modelBuilder.Entity<Document>()
+                .HasOne(d => d.lecturer)            // Document has one Lecturer
+                .WithMany(l => l.documentsLecturer)         // Lecturer has many Documents
+                .HasForeignKey(d => d.LecturerID)   // Foreign key in Document is LecturerID
+                .OnDelete(DeleteBehavior.Restrict); // Specify ON DELETE NO ACTION
+
+            modelBuilder.Entity<Document>()
+                .HasOne(d => d.claim)               // Document has one Claim
+                .WithMany(c => c.documentsClaim)         // Claim has many Documents
+                .HasForeignKey(d => d.ClaimID)      // Foreign key in Document is ClaimID
+                .OnDelete(DeleteBehavior.Restrict); // Specify ON DELETE NO ACTION
+
+
+
 
 
             base.OnModelCreating(modelBuilder);  // Foreign key in Claim is LecturerId

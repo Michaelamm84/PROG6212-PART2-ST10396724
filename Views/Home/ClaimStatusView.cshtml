@@ -6,7 +6,7 @@
 
 <h2>Claim Status View</h2>
 
-<h3>Pending Claims from Claim Table</h3>
+<h3>Pending Claims</h3>
 <table class="table">
     <thead>
         <tr>
@@ -16,6 +16,8 @@
             <th>Hours Worked</th>
             <th>Hourly Pay</th>
             <th>Notes</th>
+            <th>Program Coordinator ID</th>
+            <th>Academic Manager ID</th>
         </tr>
     </thead>
     <tbody>
@@ -28,31 +30,21 @@
                 <td>@claim.hoursWorked</td>
                 <td>@claim.hourlyPay</td>
                 <td>@claim.Notes</td>
+                <td>-</td> <!-- Placeholder for Program Coordinator ID -->
+                <td>-</td> <!-- Placeholder for Academic Manager ID -->
             </tr>
         }
-    </tbody>
-</table>
-
-<h3>Pending Claims from ClaimApproval Table</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Claim ID</th>
-            <th>Approval Status</th>
-            <th>Program Coordinator ID</th>
-            <th>Academic Manager ID</th>
-            <th>Lecturer ID</th>
-        </tr>
-    </thead>
-    <tbody>
         @foreach (var claimApproval in Model.PendingClaimApprovals)
         {
             <tr>
                 <td>@claimApproval.ClaimID</td>
                 <td>@claimApproval.newApprovalStatus</td>
+                <td>@claimApproval.LecturerID</td>
+                <td>-</td> <!-- Placeholder for Hours Worked -->
+                <td>-</td> <!-- Placeholder for Hourly Pay -->
+                <td>-</td> <!-- Placeholder for Notes -->
                 <td>@claimApproval.ProgCoOrdinatorID</td>
                 <td>@claimApproval.AcademicManagerID</td>
-                <td>@claimApproval.LecturerID</td>
             </tr>
         }
     </tbody>

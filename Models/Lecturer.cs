@@ -23,5 +23,7 @@ namespace PROG6212_PART2_ST10396724.Models
         public ICollection<Claim> claims { get; set; } = new List<Claim>();
 
         private ICollection<ClaimApproval> claimApprovals { get; set; } = new List<ClaimApproval>();
+
+        public ICollection<Document> documentsLecturer { get; set; } = new List<Document>();
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PROG6212_PART2_ST10396724.Data;
 
@@ -10,9 +11,11 @@ using PROG6212_PART2_ST10396724.Data;
 namespace PROG6212_PART2_ST10396724.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241018190618_addingUploadDocument")]
+    partial class addingUploadDocument
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,11 +125,7 @@ namespace PROG6212_PART2_ST10396724.Migrations
                     b.Property<int>("ClaimID")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("FileBinary")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileName")
+                    b.Property<string>("FileUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -139,7 +138,7 @@ namespace PROG6212_PART2_ST10396724.Migrations
 
                     b.HasIndex("LecturerID");
 
-                    b.ToTable("document");
+                    b.ToTable("Document");
                 });
 
             modelBuilder.Entity("PROG6212_PART2_ST10396724.Models.Lecturer", b =>

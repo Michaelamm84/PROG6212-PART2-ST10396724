@@ -1,120 +1,21 @@
-﻿﻿@{
-   
-    ViewData["Title"] = "Lecturer contract creation";
+﻿@model IEnumerable<PROG6212_PART2_ST10396724.Models.Document>
+
+@{
+    ViewData["Title"] = "Uploaded Documents";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecturer Monthly Claim System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+<h2>Uploaded Documents</h2>
 
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-        }
-
-        input[type="text"], input[type="date"], input[type="number"], textarea, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        input[type="file"] {
-            padding: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-            button:hover {
-                background-color: #218838;
-            }
-
-        .section-title {
-            margin-top: 40px;
-            margin-bottom: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Lecturer Monthly Claim System</h1>
-    </header>
-
-    <div class="container">
-        <h2>Create Contract</h2>
-        <form action="#" method="post">
-            <!-- Entering details for contarct -->
-            <label for="lecturer name">Lecturer Name</label>
-            <input type="text" id="lecturer-name" name="lecturer-name" placeholder="Enter your name">
-
-            <label for="lecturer ID">Lecturer Name</label>
-            <input type="text" id="lecturer-name" name="lecturer-name" placeholder="Enter your name">
-
-            <label for="lecturer Email">Contract Start Date</label>
-            <input type="date" id="contract-start-date" name="contract-start-date">
-
-         
-
-           <!-- Part allowing input for hours worked -->
-            <div class="section-title">Hours Worked</div>
-            <label for="hours-worked">Total Hours Worked</label>
-            <input type="number" id="hours-worked" name="hours-worked" placeholder="Enter total hours worked">
-
-            <label for="hourly-rate">Hourly Rate</label>
-            <input type="number" id="hourly-rate" name="hourly-rate" placeholder="Enter hourly rate">
-
-           
+<table class="table">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>Uploaded Date</th>
+            <th>Open</th>
+        </tr>
+    </thead>
+    <tbody>
         
-            <!-- Section for Uploading Supporting Documents -->
-            <div class="section-title">Supporting Documents</div>
-            <label for="supporting-documents">Upload Supporting Documents (PDF, JPG, PNG)</label>
-            <input type="file" id="supporting-documents" name="supporting-documents" multiple>
-
-            <button type="submit">Submit Contract</button>
-        </form>
-    </div>
-
-</body>
-</html>
+        
+    </tbody>
+</table>

@@ -1,0 +1,32 @@
+﻿@model PROG6212_PART2_ST10396724.Models.Document
+
+@{
+    ViewData["Title"] = "Upload Document";
+}
+
+<h2>Upload Document</h2>
+
+<form asp-action="Upload" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file">Choose a file:</label>
+        <input type="file" name="file" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FileName" class="control-label"></label>
+        <input asp-for="FileName" class="form-control" />
+        <span asp-validation-for="FileName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LecturerID" class="control-label"></label>
+        <input asp-for="LecturerID" class="form-control" />
+        <span asp-validation-for="LecturerID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ClaimID" class="control-label"></label>
+        <input asp-for="ClaimID" class="form-control" />
+        <span asp-validation-for="ClaimID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </div>
+</form>/form>
