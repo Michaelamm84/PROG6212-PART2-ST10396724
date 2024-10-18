@@ -1,0 +1,31 @@
+﻿@model PROG6212_PART2_ST10396724.Models.AcademicManager
+
+@{
+    ViewData["Title"] = "Create Academic Manager";
+}
+
+<h2>Create Academic Manager</h2>
+
+<form asp-action="CreateAcademicManager" asp-controller="Operations" method="post">
+    <div class="form-group">
+        <label asp-for="AcademicManagerName" class="control-label"></label>
+        <input asp-for="AcademicManagerName" class="form-control" />
+        <span asp-validation-for="AcademicManagerName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="acaEmail" class="control-label"></label>
+        <input asp-for="acaEmail" class="form-control" />
+        <span asp-validation-for="acaEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create Academic Manager" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -18,6 +18,22 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Micha\Documents\varsitry documents\STUDIO CODE\PROG6212-PART2-ST10396724\PROG6212-PART2-ST10396724
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Home/AcademicManagerView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2FkZW1pY01hbmFnZXJWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Home/AddUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZGRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Home/ClaimApprovalView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDbGFpbUFwcHJvdmFsVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Home/ClaimStatusView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDbGFpbVN0YXR1c1ZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Home/ClaimTrack.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDbGFpbVRyYWNrLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -28,6 +44,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Home/ProgCoOrdinator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9nQ29PcmRpbmF0b3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Micha/Documents/varsitry documents/STUDIO CODE/PROG6212-PART2-ST10396724/PROG6212-PART2-ST10396724/Views/Shared/Error.cshtml]

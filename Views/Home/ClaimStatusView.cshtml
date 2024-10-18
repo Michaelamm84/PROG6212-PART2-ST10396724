@@ -1,0 +1,109 @@
+﻿@model PROG6212_PART2_ST10396724.Models.ClaimStatusViewModel
+
+@{
+    ViewData["Title"] = "Claim Status View";
+}
+
+<h2>Claim Status View</h2>
+
+<h3>Pending Claims from Claim Table</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Approval Status</th>
+            <th>Lecturer ID</th>
+            <th>Hours Worked</th>
+            <th>Hourly Pay</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model.PendingClaims)
+        {
+            <tr>
+                <td>@claim.ClaimID</td>
+                <td>@claim.ApprovalStatus</td>
+                <td>@claim.LecturerID</td>
+                <td>@claim.hoursWorked</td>
+                <td>@claim.hourlyPay</td>
+                <td>@claim.Notes</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Pending Claims from ClaimApproval Table</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Approval Status</th>
+            <th>Program Coordinator ID</th>
+            <th>Academic Manager ID</th>
+            <th>Lecturer ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claimApproval in Model.PendingClaimApprovals)
+        {
+            <tr>
+                <td>@claimApproval.ClaimID</td>
+                <td>@claimApproval.newApprovalStatus</td>
+                <td>@claimApproval.ProgCoOrdinatorID</td>
+                <td>@claimApproval.AcademicManagerID</td>
+                <td>@claimApproval.LecturerID</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Approved Claims</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Approval Status</th>
+            <th>Program Coordinator ID</th>
+            <th>Academic Manager ID</th>
+            <th>Lecturer ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model.ApprovedClaims)
+        {
+            <tr>
+                <td>@claim.ClaimID</td>
+                <td>@claim.newApprovalStatus</td>
+                <td>@claim.ProgCoOrdinatorID</td>
+                <td>@claim.AcademicManagerID</td>
+                <td>@claim.LecturerID</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Denied Claims</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Approval Status</th>
+            <th>Program Coordinator ID</th>
+            <th>Academic Manager ID</th>
+            <th>Lecturer ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model.DeniedClaims)
+        {
+            <tr>
+                <td>@claim.ClaimID</td>
+                <td>@claim.newApprovalStatus</td>
+                <td>@claim.ProgCoOrdinatorID</td>
+                <td>@claim.AcademicManagerID</td>
+                <td>@claim.LecturerID</td>
+            </tr>
+        }
+    </tbody>
+</table>

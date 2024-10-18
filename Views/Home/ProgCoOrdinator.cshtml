@@ -1,0 +1,31 @@
+﻿@model PROG6212_PART2_ST10396724.Models.ProgCoOrdinator
+
+@{
+    ViewData["Title"] = "Create Program Coordinator";
+}
+
+<h2>Create Program Coordinator</h2>
+
+<form asp-action="CreateProgCoOrdinator" asp-controller="Operations" method="post">
+    <div class="form-group">
+        <label asp-for="ProgCoOrdinatorName" class="control-label"></label>
+        <input asp-for="ProgCoOrdinatorName" class="form-control" />
+        <span asp-validation-for="ProgCoOrdinatorName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="progEmail" class="control-label"></label>
+        <input asp-for="progEmail" class="form-control" />
+        <span asp-validation-for="progEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create Program Coordinator" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

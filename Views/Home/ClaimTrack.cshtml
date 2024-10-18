@@ -1,4 +1,4 @@
-﻿﻿@*
+﻿﻿﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
      <!-- Michael Amm
          St10396724
@@ -6,6 +6,7 @@
          10th October 2024
      -->
 *@
+@model PROG6212_PART2_ST10396724.Models.Claim
 @{
 }
 <!DOCTYPE html>
@@ -117,76 +118,44 @@
 </head>
 <body>
 
+
     <header>
         <h1>Lecturer Contract Claims</h1>
     </header>
 
     <div class="container">
         <h2>Enter Your Details</h2>
-        <form action="#" method="post">
-            <label for="lecturer-name">Lecturer Name</label>
-            <input type="text" id="lecturer-name" name="lecturer-name" placeholder="Enter your name">
-
-            <label for="lecturer-id">Lecturer ID</label>
-            <input type="text" id="lecturer-id" name="lecturer-id" placeholder="Enter your lecturer ID">
-
-            <button type="submit">View My Contract Claims</button>
+        <form asp-action="CreateClaim" asp-controller="Operations" method="post">
+            <div class="form-group">
+                <label asp-for="LecturerID" class="control-label"></label>
+                <input asp-for="LecturerID" class="form-control" />
+                <span asp-validation-for="LecturerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="hoursWorked" class="control-label"></label>
+                <input asp-for="hoursWorked" class="form-control" />
+                <span asp-validation-for="hoursWorked" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="hourlyPay" class="control-label"></label>
+                <input asp-for="hourlyPay" class="form-control" />
+                <span asp-validation-for="hourlyPay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <textarea asp-for="Notes" class="form-control"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="ApprovalStatus" value="Pending" />
+            <button type="submit" class="btn btn-primary">Submit Claim</button>
         </form>
 
-        <h2>Your Contract Claims</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Contract Period</th>
-                    <th>Total Hours Worked</th>
-                    <th>Total Expenses</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Sample Claim -->
-                <tr>
-                    <td>01/09/2024 - 30/09/2024</td>
-                    <td>40 hours</td>
-                    <td>R500</td>
-                    <td>Pending</td>
-                    <td class="action-buttons">
-                        <button class="view-btn">View Claim</button>
-                        <button class="update-btn">Update Claim</button>
-                    </td>
-                </tr>
-                <!-- section is for additional claims as needed -->
-                <tr>
-                    <td>01/08/2024 - 31/08/2024</td>
-                    <td>50 hours</td>
-                    <td>R300</td>
-                    <td>Approved</td>
-                    <td class="action-buttons">
-                        <button class="view-btn">View Claim</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Hidden Section for Updating a Claim -->
-        <h2>Update Contract Claim</h2>
-        <form action="#" method="post">
-            <label for="update-period">Contract Period</label>
-            <input type="text" id="update-period" name="update-period" value="01/09/2024 - 30/09/2024" readonly>
-
-            <label for="update-hours">Total Hours Worked</label>
-            <input type="number" id="update-hours" name="update-hours" value="40">
-
-            <label for="update-expenses">Total Expenses</label>
-            <input type="number" id="update-expenses" name="update-expenses" value="500">
-
-            <label for="update-description">Expense Description</label>
-            <textarea id="update-description" name="update-description">Travel expenses</textarea>
-
-            <button type="submit" class="save-btn">Save Changes</button>
-        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
     </div>
 
 </body>
-</html>
+</html>  

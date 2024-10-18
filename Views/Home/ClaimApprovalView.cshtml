@@ -1,0 +1,42 @@
+﻿@model PROG6212_PART2_ST10396724.Models.ClaimApproval
+
+@{
+    ViewData["Title"] = "Update Claim Approval Status";
+}
+
+<h2>Update Claim Approval Status</h2>
+
+<form asp-action="UpdateApprovalStatus" asp-controller="Operations" method="post">
+    <div class="form-group">
+        <label for="ClaimID" class="control-label">Claim ID</label>
+        <input type="number" id="ClaimID" name="ClaimID" class="form-control" required />
+        <span asp-validation-for="ClaimID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="newApprovalStatus" class="control-label">New Approval Status</label>
+        <input type="text" id="newApprovalStatus" name="newApprovalStatus" class="form-control" required />
+        <span asp-validation-for="newApprovalStatus" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="ProgCoOrdinatorID" class="control-label">Program Coordinator ID</label>
+        <input type="number" id="ProgCoOrdinatorID" name="ProgCoOrdinatorID" class="form-control" required />
+        <span asp-validation-for="ProgCoOrdinatorID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="AcademicManagerID" class="control-label">Academic Manager ID</label>
+        <input type="number" id="AcademicManagerID" name="AcademicManagerID" class="form-control" required />
+        <span asp-validation-for="AcademicManagerID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="LecturerID" class="control-label">Lecturer ID</label>
+        <input type="number" id="LecturerID" name="LecturerID" class="form-control" required />
+        <span asp-validation-for="LecturerID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
