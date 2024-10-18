@@ -5,6 +5,14 @@ using PROG6212_PART2_ST10396724.Models;
 using System.IO;
 using System.Threading.Tasks;
 
+/*
+ * Author: Michael AMM.
+ * ST10396724
+ * ProgPOEPart2
+ * 
+ */
+
+
 namespace PROG6212_PART2_ST10396724.Controllers
 {
     public class Operations : Controller
@@ -23,6 +31,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         {
             return View("~/Views/Home/AddUser.cshtml");
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -43,11 +53,16 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 return View("~/Views/Home/AddUser.cshtml", lecturer);
             }
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         public IActionResult ClaimTrack()
         {
             return View("~/Views/Home/ClaimTrack.cshtml");
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -77,12 +92,16 @@ namespace PROG6212_PART2_ST10396724.Controllers
             }
             return View("~/Views/Home/ClaimTrack.cshtml");
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpGet]
         public IActionResult AcademicManager()
         {
             return View("~/Views/Home/AcademicManagerView.cshtml");
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -103,12 +122,16 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 return View("~/Views/Home/AcademicManagerView.cshtml", academicManager);
             }
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpGet]
         public IActionResult ProgCoOrdinator()
         {
             return View("~/Views/Home/ProgCoOrdinator.cshtml");
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,12 +152,16 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 return View("~/Views/Home/ProgCoOrdinator.cshtml", progCoOrdinator);
             }
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpGet]
         public IActionResult ClaimApproval()
         {
             return View("~/Views/Home/ClaimApprovalView.cshtml");
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -165,6 +192,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
             }
             return View("~/Views/Home/ClaimApprovalView.cshtml");
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpGet]
         public async Task<IActionResult> ClaimStatusView()
@@ -198,15 +227,19 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
             return View("~/Views/Home/ClaimStatusView.cshtml", model);
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
-       
-        
+
+
 
         [HttpGet]
         public IActionResult Upload()
         {
             return View("~/Views/Home/UploadFile.cshtml", new Document());
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -254,6 +287,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
             return View("~/Views/Home/UploadFile.cshtml", model);
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -261,6 +296,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
             var documents = await _context.document.ToListAsync();
             return View("~/Views/Home/Index.cshtml", documents);
         }
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
 
         [HttpGet]
         public async Task<IActionResult> Download(int id)

@@ -1,5 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+/*
+ * Author: Michael AMM.
+ * ST10396724
+ * ProgPOEPart2
+ * 
+ */
+
 
 namespace PROG6212_PART2_ST10396724.Models
 {
@@ -17,21 +24,14 @@ namespace PROG6212_PART2_ST10396724.Models
 
              public string ApprovalStatus { get; set; } = "Pending"; // Initialized with a default value
 
-
-
-         
-        
-
-        //public string approvalStatus { get; set; }
-
+ 
             public string Notes { get; set; }
 
-        // Foreign key to Lecturer
+        
 
            [Required]
             public int LecturerID { get; set; }
 
-        // Navigation property
 
             public Lecturer? lecturer { get; set; }
 
