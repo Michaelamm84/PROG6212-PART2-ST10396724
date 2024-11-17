@@ -8,8 +8,26 @@
     <button type="submit">Get Contract Details</button>
 </form>
 
-@if (Model != null)
+<form asp-action="ValidateClaim" method="get">
+    <label for="validateClaimId">Enter Claim ID for Validation:</label>
+    <input type="text" id="validateClaimId" name="claimId" required />
+    <button type="submit">Validate Claim</button>
+</form>
+
+@if (ViewBag.ValidationErrors != null)
 {
+    <h2>Validation Results</h2>
+    <ul>
+        @foreach (var error in ViewBag.ValidationErrors)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}
+
+@if (Model != null && Model.ClaimID != null)
+{
+    <h2>Contract Details</h2>
     <table>
         <thead>
             <tr>

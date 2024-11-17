@@ -32,6 +32,42 @@ namespace PROG6212_PART2_ST10396724.Controllers
             return View("~/Views/Home/AddUser.cshtml");
         }
 
+        //-------------------------------------------------------------------------
+        //-------------------------------------------------------------------------
+
+        [HttpGet]
+        public async Task<IActionResult> ValidateClaim(int claimId)
+        {
+            var claim = await _context.claim.FindAsync(claimId);
+
+            if (claim == null)
+            {
+                ViewBag.ValidationErrors = new List<string> { "Claim not found." };
+                return View("~/Views/Home/CalculatePay.cshtml");
+            }
+
+            var validationErrors = new List<string>();
+
+            if (claim.hoursWorked < 50)
+            {
+                validationErrors.Add("Lecturer must have worked a minimum of 50 hours.");
+            }
+
+            if (claim.hoursWorked > 500)
+            {
+                validationErrors.Add("Lecturer cannot have worked more than 500 hours.");
+            }
+
+            if (claim.hourlyPay > 30)
+            {
+                validationErrors.Add("Hourly pay cannot be more than thirty rand.");
+            }
+
+            ViewBag.ValidationErrors = validationErrors;
+
+            return View("~/Views/Home/CalculatePay.cshtml", claim);
+        }
+
         //--------------------------------------------------------\
         //--------------------------------------------------------\
         [HttpGet]
