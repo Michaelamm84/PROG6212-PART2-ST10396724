@@ -31,6 +31,43 @@ namespace PROG6212_PART2_ST10396724.Controllers
         {
             return View("~/Views/Home/AddUser.cshtml");
         }
+
+        //--------------------------------------------------------\
+        //--------------------------------------------------------\
+        [HttpGet]
+        public IActionResult ShowCalculatePayForm()
+        {
+            return View("~/Views/Home/CalculatePay.cshtml");
+        }
+
+
+
+        //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
+
+        [HttpGet]
+        public async Task<IActionResult> CalculateContractValues(int contractId)
+        {
+            var claim = await _context.claim
+                .Where(c => c.ClaimID == contractId)
+                .Select(c => new
+                {
+                    c.ClaimID,
+                    c.hoursWorked,
+                    c.hourlyPay,
+                    ContractValue = c.hoursWorked * c.hourlyPay
+                })
+                .FirstOrDefaultAsync();
+
+            if (claim == null)
+            {
+                return NotFound();
+            }
+
+            return View("~/Views/Home/CalculatePay.cshtml", claim);
+        }
+
+
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 

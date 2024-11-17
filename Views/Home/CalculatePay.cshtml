@@ -1,0 +1,31 @@
+﻿@model dynamic
+
+<h1>Contract Details</h1>
+
+<form asp-action="CalculateContractValues" method="get">
+    <label for="contractId">Enter Claim ID:</label>
+    <input type="text" id="contractId" name="contractId" required />
+    <button type="submit">Get Contract Details</button>
+</form>
+
+@if (Model != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Claim ID</th>
+                <th>Hours Worked</th>
+                <th>Hourly Pay</th>
+                <th>Contract Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.ClaimID</td>
+                <td>@Model.hoursWorked</td>
+                <td>@Model.hourlyPay</td>
+                <td>@Model.ContractValue</td>
+            </tr>
+        </tbody>
+    </table>
+}
