@@ -2,18 +2,6 @@
 
 <h1>Contract Details</h1>
 
-<form asp-action="CalculateContractValues" method="get">
-    <label for="contractId">Enter Claim ID:</label>
-    <input type="text" id="contractId" name="contractId" required />
-    <button type="submit">Get Contract Details</button>
-</form>
-
-<form asp-action="ValidateClaim" method="get">
-    <label for="validateClaimId">Enter Claim ID for Validation:</label>
-    <input type="text" id="validateClaimId" name="claimId" required />
-    <button type="submit">Validate Claim</button>
-</form>
-
 @if (ViewBag.ValidationErrors != null)
 {
     <h2>Validation Results</h2>
@@ -25,8 +13,17 @@
     </ul>
 }
 
-@if (Model != null && Model.ClaimID != null)
-{
+<h2>Input Claim ID</h2>
+
+<form id="claimForm">
+    <div>
+        <label for="ClaimID">Claim ID:</label>
+        <input type="text" id="ClaimID" name="ClaimID" required />
+    </div>
+    <button type="button" id="fetchDetails">Get Contract Details</button>
+</form>
+
+<div id="contractDetails" style="display: none;">
     <h2>Contract Details</h2>
     <table>
         <thead>
@@ -39,11 +36,52 @@
         </thead>
         <tbody>
             <tr>
-                <td>@Model.ClaimID</td>
-                <td>@Model.hoursWorked</td>
-                <td>@Model.hourlyPay</td>
-                <td>@Model.ContractValue</td>
+                <td id="detailClaimID"></td>
+                <td id="detailHoursWorked"></td>
+                <td id="detailHourlyPay"></td>
+                <td id="detailContractValue"></td>
             </tr>
         </tbody>
     </table>
-}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch contract details on button click
+        $("#fetchDetails").on("click", function () {
+            var claimID = $("#ClaimID").val();
+
+            if (!claimID) {
+                alert("Please enter a valid Claim ID.");
+                return;
+            }
+
+            $.ajax({
+                url: '/Operations/GetContractDetails', // Server-side endpoint
+                method: 'GET',
+                data: { claimID: claimID },
+                success: function (response) {
+                    if (response.success) {
+                        // Populate the contract details
+                        $("#detailClaimID").text(response.data.ClaimID);
+                        $("#detailHoursWorked").text(response.data.hoursWorked);
+                        $("#detailHourlyPay").text(response.data.hourlyPay);
+
+                        // Calculate the contract value on the client side
+                        var contractValue = response.data.hoursWorked * response.data.hourlyPay;
+                        $("#detailContractValue").text(contractValue.toFixed(2));
+
+                        // Show the contract details table
+                        $("#contractDetails").show();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while fetching the contract details.");
+                }
+            });
+        });
+    });
+</script>

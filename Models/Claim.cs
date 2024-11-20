@@ -24,7 +24,7 @@ namespace PROG6212_PART2_ST10396724.Models
 
              public string ApprovalStatus { get; set; } = "Pending"; // Initialized with a default value
 
-        public decimal ContractValue => hoursWorked * hourlyPay; // Calculated proper
+        public int ContractValue => hoursWorked * hourlyPay; // Calculated proper
 
 
         public string Notes { get; set; }

@@ -24,7 +24,54 @@ namespace PROG6212_PART2_ST10396724.Controllers
         {
             _context = context;
             _logger = logger;
+        } //-------------------------------------------------------------------------
+          //-------------------------------------------------------------------------
+
+        [HttpGet]
+        public IActionResult GetContractDetails(int claimID)
+        {
+            // Check if the Claim ID is valid
+            if (claimID <= 0)
+            {
+                return Json(new { success = false, message = "Invalid Claim ID." });
+            }
+
+            // Fetch the claim from the database (using Entity Framework)
+            var claim = _context.claim
+                .Where(c => c.ClaimID == claimID)
+                .Select(c => new
+                {
+                    c.ClaimID,
+                    c.hoursWorked,
+                    c.hourlyPay,
+                    ContractValue = c.hoursWorked * c.hourlyPay
+                })
+                .FirstOrDefault();
+
+            // If claim is not found, return an error response
+            if (claim == null)
+            {
+                return Json(new { success = false, message = "Claim not found." });
+            }
+
+            // Return the claim details
+            return Json(new
+            {
+                success = true,
+                data = new
+                {
+                    claim.ClaimID,
+                    claim.hoursWorked,
+                    claim.hourlyPay,
+                    claim.ContractValue
+                }
+            });
         }
+
+
+
+        //-------------------------------------------------------------------------
+        //-------------------------------------------------------------------------
 
         [HttpGet]
         public IActionResult Create()
