@@ -1,0 +1,90 @@
+﻿@{
+    var lecturers = ViewBag.Lecturers as List<PROG6212_PART2_ST10396724.Models.Lecturer>;
+    var claims = ViewBag.Claims as List<PROG6212_PART2_ST10396724.Models.Claim>;
+}
+
+<h1>HR Management</h1>
+
+<h2>Lecturers</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Lecturer ID</th>
+            <th>Lecturer Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (lecturers != null)
+        {
+            foreach (var lecturer in lecturers)
+            {
+                <tr>
+                    <td>@lecturer.LecturerID</td>
+                    <td>@lecturer.LecturerName</td>
+                    <td>@lecturer.Email</td>
+                    <td>
+                        <form method="post" action="/HR/EditLecturer">
+                            <input type="hidden" name="LecturerID" value="@lecturer.LecturerID" />
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h2>Claims</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Lecturer Name</th>
+            <th>Hours Worked</th>
+            <th>Hourly Pay</th>
+            <th>Total Value</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (claims != null)
+        {
+            foreach (var claim in claims)
+            {
+                <tr>
+                    <td>@claim.ClaimID</td>
+                    <td>@claim.lecturer?.LecturerName</td>
+                    <td>@claim.hoursWorked</td>
+                    <td>@claim.hourlyPay</td>
+                    <td>@claim.ContractValue</td>
+                    <td>
+                        <form method="post" action="/Operations/GenerateInvoicee">
+                            <input type="hidden" name="ClaimID" value="@claim.ClaimID" />
+                            <button type="submit">Request Invoice</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h3>Request Invoice by Claim ID</h3>
+<form method="post" action="/Operations/GenerateInvoice">
+    <div>
+        <label for="claimId">Enter Claim ID:</label>
+        <input type="number" id="claimId" name="ClaimID" required />
+    </div>
+    <button type="submit">Request Invoice</button>
+</form>
+
+<h3>Edit Lecturer by ID</h3>
+<form method="post" action="/HR/EditLecturer">
+    <div>
+        <label for="lecturerId">Enter Lecturer ID:</label>
+        <input type="number" id="lecturerId" name="LecturerID" required />
+    </div>
+    <button type="submit">Edit Lecturer</button>
+</form>

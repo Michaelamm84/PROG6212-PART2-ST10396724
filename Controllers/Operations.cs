@@ -24,8 +24,142 @@ namespace PROG6212_PART2_ST10396724.Controllers
         {
             _context = context;
             _logger = logger;
-        } //-------------------------------------------------------------------------
-          //-------------------------------------------------------------------------
+        }
+        //-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
+        [HttpPost]
+        public IActionResult EditLecturer(int LecturerID)
+        {
+            var lecturer = _context.lecturer.FirstOrDefault(l => l.LecturerID == LecturerID);
+            if (lecturer == null)
+            {
+                return NotFound("Lecturer not found.");
+            }
+
+            return View("~/Views/Home/EditLecturer.cshtml", lecturer);
+        }
+
+
+        //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
+
+        public IActionResult HRManagementView()
+        {
+            return View("~/Views/Home/HRManagementView.cshtml");
+        }
+        //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
+        [HttpGet]
+        public IActionResult HRManagement()
+        {
+            // Fetch lecturers and claims from the database
+            var lecturers = _context.lecturer.ToList();
+            var claims = _context.claim.Include(c => c.lecturer).ToList();
+
+            // Pass data to the view using ViewBag
+            ViewBag.Lecturers = lecturers;
+            ViewBag.Claims = claims;
+
+            return View(); // No need for a ViewModel
+        }
+
+        //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
+
+
+
+        // Generate Invoice for a Claim
+        [HttpPost]
+        public IActionResult GenerateInvoice(int claimID)
+        {
+            var claim = _context.claim
+                .Include(c => c.lecturer)
+                .FirstOrDefault(c => c.ClaimID == claimID);
+
+            if (claim == null)
+                return NotFound("Claim not found.");
+
+            // Invoice generation logic here (use iTextSharp, Crystal Reports, or similar)
+            var invoice = GenerateInvoicePDF(claim);
+
+            return File(invoice, "application/pdf", $"Invoice_Claim_{claimID}.pdf");
+        }
+
+        //------------------------------------------------------
+        //------------------------------------------------------
+
+
+        private byte[] GenerateInvoicePDF(Claim claim)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                // Create PDF writer
+                var writer = new iText.Kernel.Pdf.PdfWriter(memoryStream);
+                var pdf = new iText.Kernel.Pdf.PdfDocument(writer);
+                var document = new iText.Layout.Document(pdf);
+
+                // Add title
+                document.Add(new iText.Layout.Element.Paragraph("Invoice")
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetFontSize(20)
+                    );
+
+                // Add claim details
+                document.Add(new iText.Layout.Element.Paragraph($"Claim ID: {claim.ClaimID}")
+                    .SetFontSize(12));
+                document.Add(new iText.Layout.Element.Paragraph($"Lecturer Name: {claim.lecturer?.LecturerName ?? "N/A"}")
+                    .SetFontSize(12));
+                document.Add(new iText.Layout.Element.Paragraph($"Hours Worked: {claim.hoursWorked}")
+                    .SetFontSize(12));
+                document.Add(new iText.Layout.Element.Paragraph($"Hourly Pay: {claim.hourlyPay:C}")
+                    .SetFontSize(12));
+                document.Add(new iText.Layout.Element.Paragraph($"Total Contract Value: {claim.ContractValue:C}")
+                    .SetFontSize(12));
+
+                // Add footer
+                document.Add(new iText.Layout.Element.Paragraph("Thank you for your work!")
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetFontSize(10)
+                    );
+
+                // Close the document
+                document.Close();
+
+                // Return PDF as a byte array
+                return memoryStream.ToArray();
+            }
+        }
+        //------------------------------------------------------
+        //------------------------------------------------------
+
+        // Save Lecturer Data
+        [HttpPost]
+        public IActionResult UpdateLecturer(Lecturer updatedLecturer)
+        {
+            var lecturer = _context.lecturer.FirstOrDefault(l => l.LecturerID == updatedLecturer.LecturerID);
+            if (lecturer == null)
+            {
+                return NotFound("Lecturer not found.");
+            }
+
+            lecturer.LecturerName = updatedLecturer.LecturerName;
+            lecturer.Email = updatedLecturer.Email;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("HRManagement");
+        }
+
+
+
+
+
+
+
+
+
+        //-------------------------------------------------------------------------
+        //-------------------------------------------------------------------------
 
         [HttpGet]
         public IActionResult GetContractDetails(int claimID)

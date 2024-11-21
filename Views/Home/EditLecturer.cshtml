@@ -1,0 +1,15 @@
+﻿@model PROG6212_PART2_ST10396724.Models.Lecturer
+
+<h1>Edit Lecturer</h1>
+<form method="post" action="/Operations/UpdateLecturer">
+    <input type="hidden" name="LecturerID" value="@Model.LecturerID" />
+    <div>
+        <label for="lecturerName">Lecturer Name:</label>
+        <input type="text" id="lecturerName" name="lecturerName" value="@Model.LecturerName" required />
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="Email" value="@Model.Email" required />
+    </div>
+    <button type="submit">Save Changes</button>
+</form>
