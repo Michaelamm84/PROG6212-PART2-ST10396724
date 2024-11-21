@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PROG6212-PART2-ST10396724")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60057d8ad43c3b5361ae2798e5730011a1f81c6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+785e0827de9bc6bbef238f4f92d34dfb97b95833")]
 [assembly: System.Reflection.AssemblyProductAttribute("PROG6212-PART2-ST10396724")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PROG6212-PART2-ST10396724")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

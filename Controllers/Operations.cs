@@ -219,16 +219,20 @@ namespace PROG6212_PART2_ST10396724.Controllers
         [HttpGet]
         public async Task<IActionResult> ValidateClaim(int claimId)
         {
+            // Fetch the claim from the database
             var claim = await _context.claim.FindAsync(claimId);
 
+            // If the claim doesn't exist, return an error
             if (claim == null)
             {
                 ViewBag.ValidationErrors = new List<string> { "Claim not found." };
-                return View("~/Views/Home/CalculatePay.cshtml");
+                return View("~/Views/Home/ValidateClaim.cshtml");
             }
 
+            // Initialize the validation errors list
             var validationErrors = new List<string>();
 
+            // Perform validation checks
             if (claim.hoursWorked < 50)
             {
                 validationErrors.Add("Lecturer must have worked a minimum of 50 hours.");
@@ -244,10 +248,21 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 validationErrors.Add("Hourly pay cannot be more than thirty rand.");
             }
 
-            ViewBag.ValidationErrors = validationErrors;
+            // Pass validation errors or success message to the view
+            if (validationErrors.Any())
+            {
+                ViewBag.ValidationErrors = validationErrors;
+                ViewBag.SuccessMessage = null; // Ensure no success message is displayed
+            }
+            else
+            {
+                ViewBag.ValidationErrors = null; // Ensure no validation errors are displayed
+                ViewBag.SuccessMessage = "Claim is valid.";
+            }
 
-            return View("~/Views/Home/CalculatePay.cshtml", claim);
+            return View("~/Views/Home/ValidateClaim.cshtml", claim);
         }
+
 
         //--------------------------------------------------------\
         //--------------------------------------------------------\

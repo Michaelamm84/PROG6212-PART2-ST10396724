@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Validate Claim";
+    var validationErrors = ViewBag.ValidationErrors as List<string>;
+    var successMessage = ViewBag.SuccessMessage as string;
+}
+
+<h2>Validate Claim</h2>
+
+<!-- Form to Enter Claim ID -->
+<form asp-action="ValidateClaim" asp-controller="Operations" method="get">
+    <div class="form-group">
+        <label for="claimId">Enter Claim ID:</label>
+        <input type="number" id="claimId" name="claimId" class="form-control" placeholder="Enter Claim ID" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Validate Claim</button>
+</form>
+
+<hr />
+
+<!-- Display Validation Errors -->
+@if (validationErrors != null && validationErrors.Any())
+{
+    <div class="alert alert-danger mt-4">
+        <strong>Validation Errors:</strong>
+        <ul>
+            @foreach (var error in validationErrors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Display Success Message -->
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success mt-4">
+        <p>@successMessage</p>
+    </div>
+}
