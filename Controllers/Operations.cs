@@ -28,6 +28,10 @@ namespace PROG6212_PART2_ST10396724.Controllers
         }
         //-----------------------------------------------------------------------
         //-----------------------------------------------------------------------
+
+
+
+
         [HttpPost]
         public IActionResult EditLecturer(int LecturerID)
         {
@@ -48,8 +52,14 @@ namespace PROG6212_PART2_ST10396724.Controllers
         {
             return View("~/Views/Home/HRManagementView.cshtml");
         }
+
+
+
         //---------------------------------------------------------------------------
         //---------------------------------------------------------------------------
+
+
+
         [HttpGet]
         public IActionResult HRManagement()
         {
@@ -162,6 +172,9 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //-------------------------------------------------------------------------
         //-------------------------------------------------------------------------
 
+
+        //retrives details of a claim
+
         [HttpGet]
         public IActionResult GetContractDetails(int claimID)
         {
@@ -206,7 +219,10 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
 
         //-------------------------------------------------------------------------
-        //-------------------------------------------------------------------------
+        //-------------------------------------------------------------------------\
+
+
+        // returns the view for making a lectuerer
 
         [HttpGet]
         public IActionResult Create()
@@ -216,6 +232,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
         //-------------------------------------------------------------------------
         //-------------------------------------------------------------------------
+
+        // validates a claim
         public async Task<IActionResult> ValidateClaim(int claimId)
         {
             var claim = await _context.claim.FindAsync(claimId);
@@ -250,6 +268,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
         //--------------------------------------------------------\
         //--------------------------------------------------------\
+
+        // returns the view for calculating pay
         [HttpGet]
         public IActionResult ShowCalculatePayForm()
         {
@@ -260,6 +280,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        // calculates the total pay for a contract 
 
         [HttpGet]
         public async Task<IActionResult> CalculateContractValues(int contractId)
@@ -287,6 +309,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
+        //creates a lecturer
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Lecturer lecturer)
@@ -310,12 +334,16 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
+        //returns the view for tracking a claim
+
         public IActionResult ClaimTrack()
         {
             return View("~/Views/Home/ClaimTrack.cshtml");
         }
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        ///Create a new claim
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -372,6 +400,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
+        //returns the view for the academic manager
+
         [HttpGet]
         public IActionResult AcademicManager()
         {
@@ -379,6 +409,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         }
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        //creates an academic manager
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -403,6 +435,7 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
+        //returns the view for the program coordinator
         [HttpGet]
         public IActionResult ProgCoOrdinator()
         {
@@ -410,6 +443,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         }
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        //creates a program coordinator
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -434,6 +469,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
+        //returns the view for the claim approval
+
         [HttpGet]
         public IActionResult ClaimApproval()
         {
@@ -441,6 +478,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         }
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        //updates the approval status of a claim
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -473,6 +512,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         }
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        //returns the view for the claim status
 
         [HttpGet]
         public async Task<IActionResult> ClaimStatusView()
@@ -509,7 +550,7 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
-
+        //returns the view for uploading a file
 
 
         [HttpGet]
@@ -519,6 +560,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         }
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        //uploads a file
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -577,6 +620,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
         }
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
+
+        //downloads a file
 
         [HttpGet]
         public async Task<IActionResult> Download(int id)
