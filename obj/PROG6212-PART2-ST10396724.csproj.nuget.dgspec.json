@@ -71,6 +71,10 @@
             "itext7.bouncy-castle-adapter": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "popper.js": {
+              "target": "Package",
+              "version": "[1.16.1, )"
             }
           },
           "imports": [

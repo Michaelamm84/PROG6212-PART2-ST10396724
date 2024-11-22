@@ -1,17 +1,92 @@
 ﻿@model PROG6212_PART2_ST10396724.Models.Document
 
 @{
-    ViewData["Title"] = "Uploaded Documents";
+    ViewData["Title"] = "Home";
 }
 
-<h2>Uploaded Documents</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Lecturer Contract Claims</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>File Name</th>
-            <th>Uploaded Date</th>
-            <th>Open</th>
-        </tr>
-    </thead>
-</table>
+        .jumbotron {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .feature {
+            margin-top: 20px;
+        }
+
+        .feature-icon {
+            font-size: 50px;
+            color: #007bff;
+        }
+
+        .feature-text {
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to Lecturer Contract Claims</h1>
+        <p class="lead">Manage your contract claims efficiently and effortlessly.</p>
+        <hr class="my-4">
+        <p>Explore the features of our application below.</p>
+        <a class="btn btn-primary btn-lg" href="/Home/ClaimTrack" role="button">Get Started</a>
+    </div>
+
+    <div class="container">
+        <div class="row feature">
+            <div class="col-md-2 text-center">
+                <i class="feature-icon fas fa-file-upload"></i>
+            </div>
+            <div class="col-md-10 feature-text">
+                <h3>Upload Documents</h3>
+                <p>Easily upload and manage your documents related to contract claims.</p>
+            </div>
+        </div>
+        <div class="row feature">
+            <div class="col-md-2 text-center">
+                <i class="feature-icon fas fa-check-circle"></i>
+            </div>
+            <div class="col-md-10 feature-text">
+                <h3>Validate Claims</h3>
+                <p>Automatically validate your claims to ensure accuracy and compliance.</p>
+            </div>
+        </div>
+        <div class="row feature">
+            <div class="col-md-2 text-center">
+                <i class="feature-icon fas fa-chart-line"></i>
+            </div>
+            <div class="col-md-10 feature-text">
+                <h3>Track Claims</h3>
+                <p>Keep track of your claims and their statuses in real-time.</p>
+            </div>
+        </div>
+        <div class="row feature">
+            <div class="col-md-2 text-center">
+                <i class="feature-icon fas fa-user-shield"></i>
+            </div>
+            <div class="col-md-10 feature-text">
+                <h3>Secure and Reliable</h3>
+                <p>Your data is secure with us. We ensure the highest level of security and reliability.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

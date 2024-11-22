@@ -6,9 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecturer Contract Claims</title>
-    <style>
-        /* Your existing styles */
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <header>
@@ -17,25 +15,26 @@
 
     <div class="container">
         <h2>Enter Your Details</h2>
+        <p class="text-danger">All fields are required please enter all fields (including notes).</p> <!-- Inform the user that all fields are required -->
         <form asp-action="CreateClaim" asp-controller="Operations" method="post">
             <div class="form-group">
                 <label asp-for="LecturerID" class="control-label"></label>
-                <input asp-for="LecturerID" class="form-control" />
+                <input asp-for="LecturerID" class="form-control" required />
                 <span asp-validation-for="LecturerID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="hoursWorked" class="control-label"></label>
-                <input asp-for="hoursWorked" class="form-control" />
+                <input asp-for="hoursWorked" class="form-control" required />
                 <span asp-validation-for="hoursWorked" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="hourlyPay" class="control-label"></label>
-                <input asp-for="hourlyPay" class="form-control" />
+                <input asp-for="hourlyPay" class="form-control" required />
                 <span asp-validation-for="hourlyPay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Notes" class="control-label"></label>
-                <textarea asp-for="Notes" class="form-control"></textarea>
+                <textarea asp-for="Notes" class="form-control" required></textarea>
                 <span asp-validation-for="Notes" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="ApprovalStatus" value="Pending" />
@@ -58,11 +57,17 @@
             </div>
         }
 
-        @section Scripts {
-            @{
-                await Html.RenderPartialAsync("_ValidationScriptsPartial");
-            }
+        @if (ViewBag.ClaimID != null)
+        {
+            <div class="alert alert-success">
+                Claim created successfully with ID: @ViewBag.ClaimID
+            </div>
         }
+
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

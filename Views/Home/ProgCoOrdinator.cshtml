@@ -1,31 +1,81 @@
 ﻿@model PROG6212_PART2_ST10396724.Models.ProgCoOrdinator
 
 @{
-    ViewData["Title"] = "Create Program Coordinator";
+    ViewData["Title"] = "Program Coordinator Details";
 }
 
-<h2>Create Program Coordinator</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Lecturer Contract Claims</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
 
-<form asp-action="CreateProgCoOrdinator" asp-controller="Operations" method="post">
-    <div class="form-group">
-        <label asp-for="ProgCoOrdinatorName" class="control-label"></label>
-        <input asp-for="ProgCoOrdinatorName" class="form-control" />
-        <span asp-validation-for="ProgCoOrdinatorName" class="text-danger"></span>
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Program Coordinator Details</h1>
+    </header>
+
+    <div class="container">
+        <h2>Enter Program Coordinator Details</h2>
+        <form asp-action="CreateProgCoOrdinator" asp-controller="Operations" method="post">
+            <div class="form-group">
+                <label asp-for="ProgCoOrdinatorName" class="control-label"></label>
+                <input asp-for="ProgCoOrdinatorName" class="form-control" />
+                <span asp-validation-for="ProgCoOrdinatorName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="progEmail" class="control-label"></label>
+                <input asp-for="progEmail" class="form-control" />
+                <span asp-validation-for="progEmail" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+        @if (ViewBag.ProgCoOrinatorID == null)
+        {
+            <div class="alert alert-success">
+                Lecturer created successfully with ID: @ViewBag.ProgCoOrdinatorID
+            </div>
+        }
+
+
+        @section Scripts {
+            @await Html.PartialAsync("_ValidationScriptsPartial")
+        }
     </div>
 
-    <div class="form-group">
-        <label asp-for="progEmail" class="control-label"></label>
-        <input asp-for="progEmail" class="form-control" />
-        <span asp-validation-for="progEmail" class="text-danger"></span>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
 
-    <div class="form-group">
-        <input type="submit" value="Create Program Coordinator" class="btn btn-primary" />
-    </div>
-</form>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

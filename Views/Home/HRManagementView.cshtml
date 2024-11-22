@@ -3,88 +3,139 @@
     var claims = ViewBag.Claims as List<PROG6212_PART2_ST10396724.Models.Claim>;
 }
 
-<h1>HR Management</h1>
-
-<h2>Lecturers</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Lecturer ID</th>
-            <th>Lecturer Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (lecturers != null)
-        {
-            foreach (var lecturer in lecturers)
-            {
-                <tr>
-                    <td>@lecturer.LecturerID</td>
-                    <td>@lecturer.LecturerName</td>
-                    <td>@lecturer.Email</td>
-                    <td>
-                        <form method="post" action="/HR/EditLecturer">
-                            <input type="hidden" name="LecturerID" value="@lecturer.LecturerID" />
-                            <button type="submit">Edit</button>
-                        </form>
-                    </td>
-                </tr>
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Management - Lecturer Contract Claims</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
         }
-    </tbody>
-</table>
 
-<h2>Claims</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Claim ID</th>
-            <th>Lecturer Name</th>
-            <th>Hours Worked</th>
-            <th>Hourly Pay</th>
-            <th>Total Value</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (claims != null)
-        {
-            foreach (var claim in claims)
-            {
-                <tr>
-                    <td>@claim.ClaimID</td>
-                    <td>@claim.lecturer?.LecturerName</td>
-                    <td>@claim.hoursWorked</td>
-                    <td>@claim.hourlyPay</td>
-                    <td>@claim.ContractValue</td>
-                    <td>
-                        <form method="post" action="/Operations/GenerateInvoicee">
-                            <input type="hidden" name="ClaimID" value="@claim.ClaimID" />
-                            <button type="submit">Request Invoice</button>
-                        </form>
-                    </td>
-                </tr>
-            }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
         }
-    </tbody>
-</table>
 
-<h3>Request Invoice by Claim ID</h3>
-<form method="post" action="/Operations/GenerateInvoice">
-    <div>
-        <label for="claimId">Enter Claim ID:</label>
-        <input type="number" id="claimId" name="ClaimID" required />
-    </div>
-    <button type="submit">Request Invoice</button>
-</form>
+        .container {
+            margin-top: 30px;
+        }
 
-<h3>Edit Lecturer by ID</h3>
-<form method="post" action="/Operations/EditLecturer">
-    <div>
-        <label for="lecturerId">Enter Lecturer ID:</label>
-        <input type="number" id="lecturerId" name="LecturerID" required />
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HR Management</h1>
+    </header>
+
+    <div class="container">
+        <h2>Lecturers</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Lecturer ID</th>
+                    <th>Lecturer Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (lecturers != null)
+                {
+                    foreach (var lecturer in lecturers)
+                    {
+                        <tr>
+                            <td>@lecturer.LecturerID</td>
+                            <td>@lecturer.LecturerName</td>
+                            <td>@lecturer.Email</td>
+                            <td>
+                                <form method="post" action="/HR/EditLecturer">
+                                    <input type="hidden" name="LecturerID" value="@lecturer.LecturerID" />
+                                    <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <h2>Claims</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Lecturer Name</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly Pay</th>
+                    <th>Total Value</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (claims != null)
+                {
+                    foreach (var claim in claims)
+                    {
+                        <tr>
+                            <td>@claim.ClaimID</td>
+                            <td>@claim.lecturer?.LecturerName</td>
+                            <td>@claim.hoursWorked</td>
+                            <td>@claim.hourlyPay</td>
+                            <td>@claim.ContractValue</td>
+                            <td>
+                                <form method="post" action="/Operations/GenerateInvoicee">
+                                    <input type="hidden" name="ClaimID" value="@claim.ClaimID" />
+                                    <button type="submit" class="btn btn-primary btn-sm">Request Invoice</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <h3>Request Invoice by Claim ID</h3>
+        <form method="post" action="/Operations/GenerateInvoice" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="claimId" class="sr-only">Enter Claim ID:</label>
+                <input type="number" id="claimId" name="ClaimID" class="form-control" placeholder="Enter Claim ID" required />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Request Invoice</button>
+        </form>
+
+        <h3>Edit Lecturer by ID</h3>
+        <form method="post" action="/Operations/EditLecturer" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="lecturerId" class="sr-only">Enter Lecturer ID:</label>
+                <input type="number" id="lecturerId" name="LecturerID" class="form-control" placeholder="Enter Lecturer ID" required />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Edit Lecturer</button>
+        </form>
     </div>
-    <button type="submit">Edit Lecturer</button>
-</form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

@@ -4,98 +4,145 @@
     ViewData["Title"] = "Claim Status View";
 }
 
-<h2>Claim Status View</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Lecturer Contract Claims</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
 
-<h3>Pending Claims</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Claim ID</th>
-            <th>Approval Status</th>
-            <th>Lecturer ID</th>
-            <th>Hours Worked</th>
-            <th>Hourly Pay</th>
-            <th>Notes</th>
-            <th>Program Coordinator ID</th>
-            <th>Academic Manager ID</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var claim in Model.PendingClaims)
-        {
-            <tr>
-                <td>@claim.ClaimID</td>
-                <td>@claim.ApprovalStatus</td>
-                <td>@claim.LecturerID</td>
-                <td>@claim.hoursWorked</td>
-                <td>@claim.hourlyPay</td>
-                <td>@claim.Notes</td>
-                <td>-</td> <!-- Placeholder for Program Coordinator ID -->
-                <td>-</td> <!-- Placeholder for Academic Manager ID -->
-            </tr>
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
         }
-        @foreach (var claimApproval in Model.PendingClaimApprovals)
-        {
-            <tr>
-                <td>@claimApproval.ClaimID</td>
-                <td>@claimApproval.newApprovalStatus</td>
-                <td>@claimApproval.LecturerID</td>
-                <td>-</td> <!-- Placeholder for Hours Worked -->
-                <td>-</td> <!-- Placeholder for Hourly Pay -->
-                <td>-</td> <!-- Placeholder for Notes -->
-                <td>@claimApproval.ProgCoOrdinatorID</td>
-                <td>@claimApproval.AcademicManagerID</td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-<h3>Approved Claims</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Claim ID</th>
-            <th>Approval Status</th>
-            <th>Program Coordinator ID</th>
-            <th>Academic Manager ID</th>
-            <th>Lecturer ID</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var claim in Model.ApprovedClaims)
-        {
-            <tr>
-                <td>@claim.ClaimID</td>
-                <td>@claim.newApprovalStatus</td>
-                <td>@claim.ProgCoOrdinatorID</td>
-                <td>@claim.AcademicManagerID</td>
-                <td>@claim.LecturerID</td>
-            </tr>
+        .container {
+            margin-top: 30px;
         }
-    </tbody>
-</table>
 
-<h3>Denied Claims</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Claim ID</th>
-            <th>Approval Status</th>
-            <th>Program Coordinator ID</th>
-            <th>Academic Manager ID</th>
-            <th>Lecturer ID</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var claim in Model.DeniedClaims)
-        {
-            <tr>
-                <td>@claim.ClaimID</td>
-                <td>@claim.newApprovalStatus</td>
-                <td>@claim.ProgCoOrdinatorID</td>
-                <td>@claim.AcademicManagerID</td>
-                <td>@claim.LecturerID</td>
-            </tr>
+        h2, h3 {
+            color: #007bff;
         }
-    </tbody>
-</table>
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Claim Status View</h1>
+    </header>
+
+    <div class="container">
+        <h2>Claim Status View</h2>
+
+        <h3>Pending Claims</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Approval Status</th>
+                    <th>Lecturer ID</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly Pay</th>
+                    <th>Notes</th>
+                    <th>Program Coordinator ID</th>
+                    <th>Academic Manager ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model.PendingClaims)
+                {
+                    <tr>
+                        <td>@claim.ClaimID</td>
+                        <td>@claim.ApprovalStatus</td>
+                        <td>@claim.LecturerID</td>
+                        <td>@claim.hoursWorked</td>
+                        <td>@claim.hourlyPay</td>
+                        <td>@claim.Notes</td>
+                        <td>-</td> <!-- Placeholder for Program Coordinator ID -->
+                        <td>-</td> <!-- Placeholder for Academic Manager ID -->
+                    </tr>
+                }
+                @foreach (var claimApproval in Model.PendingClaimApprovals)
+                {
+                    <tr>
+                        <td>@claimApproval.ClaimID</td>
+                        <td>@claimApproval.newApprovalStatus</td>
+                        <td>@claimApproval.LecturerID</td>
+                        <td>-</td> <!-- Placeholder for Hours Worked -->
+                        <td>-</td> <!-- Placeholder for Hourly Pay -->
+                        <td>-</td> <!-- Placeholder for Notes -->
+                        <td>@claimApproval.ProgCoOrdinatorID</td>
+                        <td>@claimApproval.AcademicManagerID</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h3>Approved Claims</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Approval Status</th>
+                    <th>Program Coordinator ID</th>
+                    <th>Academic Manager ID</th>
+                    <th>Lecturer ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model.ApprovedClaims)
+                {
+                    <tr>
+                        <td>@claim.ClaimID</td>
+                        <td>@claim.newApprovalStatus</td>
+                        <td>@claim.ProgCoOrdinatorID</td>
+                        <td>@claim.AcademicManagerID</td>
+                        <td>@claim.LecturerID</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h3>Denied Claims</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Approval Status</th>
+                    <th>Program Coordinator ID</th>
+                    <th>Academic Manager ID</th>
+                    <th>Lecturer ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model.DeniedClaims)
+                {
+                    <tr>
+                        <td>@claim.ClaimID</td>
+                        <td>@claim.newApprovalStatus</td>
+                        <td>@claim.ProgCoOrdinatorID</td>
+                        <td>@claim.AcademicManagerID</td>
+                        <td>@claim.LecturerID</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

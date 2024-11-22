@@ -1,87 +1,143 @@
 ﻿@model dynamic
 
-<h1>Contract Details</h1>
-
-@if (ViewBag.ValidationErrors != null)
-{
-    <h2>Validation Results</h2>
-    <ul>
-        @foreach (var error in ViewBag.ValidationErrors)
-        {
-            <li>@error</li>
-        }
-    </ul>
+@{
+    ViewData["Title"] = "Calculate Pay";
 }
 
-<h2>Input Claim ID</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Lecturer Contract Claims</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
 
-<form id="claimForm">
-    <div>
-        <label for="ClaimID">Claim ID:</label>
-        <input type="text" id="ClaimID" name="ClaimID" required />
-    </div>
-    <button type="button" id="fetchDetails">Get Contract Details</button>
-</form>
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
 
-<div id="contractDetails" style="display: none;">
-    <h2>Contract Details</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Claim ID</th>
-                <th>Hours Worked</th>
-                <th>Hourly Pay</th>
-                <th>Contract Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td id="detailClaimID"></td>
-                <td id="detailHoursWorked"></td>
-                <td id="detailHourlyPay"></td>
-                <td id="detailContractValue"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        .container {
+            margin-top: 30px;
+        }
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // Fetch contract details on button click
-        $("#fetchDetails").on("click", function () {
-            var claimID = $("#ClaimID").val();
+        .form-group label {
+            font-weight: bold;
+        }
 
-            if (!claimID) {
-                alert("Please enter a valid Claim ID.");
-                return;
-            }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
 
-            $.ajax({
-                url: '/Operations/GetContractDetails', // Server-side endpoint
-                method: 'GET',
-                data: { claimID: claimID },
-                success: function (response) {
-                    if (response.success) {
-                        // Populate the contract details
-                        $("#detailClaimID").text(response.data.ClaimID);
-                        $("#detailHoursWorked").text(response.data.hoursWorked);
-                        $("#detailHourlyPay").text(response.data.hourlyPay);
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contract Details</h1>
+    </header>
 
-                        // Calculate the contract value on the client side
-                        var contractValue = response.data.hoursWorked * response.data.hourlyPay;
-                        $("#detailContractValue").text(contractValue.toFixed(2));
-
-                        // Show the contract details table
-                        $("#contractDetails").show();
-                    } else {
-                        alert(response.message);
+    <div class="container">
+        @if (ViewBag.ValidationErrors != null)
+        {
+            <div class="alert alert-danger">
+                <h2>Validation Results</h2>
+                <ul>
+                    @foreach (var error in ViewBag.ValidationErrors)
+                    {
+                        <li>@error</li>
                     }
-                },
-                error: function () {
-                    alert("An error occurred while fetching the contract details.");
+                </ul>
+            </div>
+        }
+
+        <h2>Input Claim ID</h2>
+
+        <form id="claimForm" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="ClaimID" class="sr-only">Claim ID:</label>
+                <input type="text" id="ClaimID" name="ClaimID" class="form-control" placeholder="Enter Claim ID" required />
+            </div>
+            <button type="button" id="fetchDetails" class="btn btn-primary mb-2">Get Contract Details</button>
+        </form>
+
+        <div id="contractDetails" style="display: none;">
+            <h2>Contract Details</h2>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Claim ID</th>
+                        <th>Hours Worked</th>
+                        <th>Hourly Pay</th>
+                        <th>Contract Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="detailClaimID"></td>
+                        <td id="detailHoursWorked"></td>
+                        <td id="detailHourlyPay"></td>
+                        <td id="detailContractValue"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Fetch contract details on button click
+            $("#fetchDetails").on("click", function () {
+                var claimID = $("#ClaimID").val();
+
+                if (!claimID) {
+                    alert("Please enter a valid Claim ID.");
+                    return;
                 }
+
+                $.ajax({
+                    url: '/Operations/GetContractDetails', // Server-side endpoint
+                    method: 'GET',
+                    data: { claimID: claimID },
+                    success: function (response) {
+                        if (response.success) {
+                            // Populate the contract details
+                            $("#detailClaimID").text(response.data.ClaimID);
+                            $("#detailHoursWorked").text(response.data.hoursWorked);
+                            $("#detailHourlyPay").text(response.data.hourlyPay);
+
+                            // Calculate the contract value on the client side
+                            var contractValue = response.data.hoursWorked * response.data.hourlyPay;
+                            $("#detailContractValue").text(contractValue.toFixed(2));
+
+                            // Show the contract details table
+                            $("#contractDetails").show();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching the contract details.");
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

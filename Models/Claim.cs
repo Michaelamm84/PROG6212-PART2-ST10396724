@@ -27,7 +27,7 @@ namespace PROG6212_PART2_ST10396724.Models
         public int ContractValue => hoursWorked * hourlyPay; // Calculated proper
 
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         
 

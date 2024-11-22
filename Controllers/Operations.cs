@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PROG6212_PART2_ST10396724.Data;
+using PROG6212_PART2_ST10396724.Migrations;
 using PROG6212_PART2_ST10396724.Models;
 using System.IO;
 using System.Threading.Tasks;
@@ -147,7 +148,7 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("HRManagement");
+            return View("~/Views/Home/AddUser.cshtml");
         }
 
 
@@ -215,24 +216,17 @@ namespace PROG6212_PART2_ST10396724.Controllers
 
         //-------------------------------------------------------------------------
         //-------------------------------------------------------------------------
-
-        [HttpGet]
         public async Task<IActionResult> ValidateClaim(int claimId)
         {
-            // Fetch the claim from the database
             var claim = await _context.claim.FindAsync(claimId);
-
-            // If the claim doesn't exist, return an error
             if (claim == null)
             {
-                ViewBag.ValidationErrors = new List<string> { "Claim not found." };
-                return View("~/Views/Home/ValidateClaim.cshtml");
+                ViewData["ValidationErrors"] = new List<string> { "Claim not found." };
+                return View();
             }
 
-            // Initialize the validation errors list
             var validationErrors = new List<string>();
 
-            // Perform validation checks
             if (claim.hoursWorked < 50)
             {
                 validationErrors.Add("Lecturer must have worked a minimum of 50 hours.");
@@ -248,20 +242,10 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 validationErrors.Add("Hourly pay cannot be more than thirty rand.");
             }
 
-            // Pass validation errors or success message to the view
-            if (validationErrors.Any())
-            {
-                ViewBag.ValidationErrors = validationErrors;
-                ViewBag.SuccessMessage = null; // Ensure no success message is displayed
-            }
-            else
-            {
-                ViewBag.ValidationErrors = null; // Ensure no validation errors are displayed
-                ViewBag.SuccessMessage = "Claim is valid.";
-            }
-
-            return View("~/Views/Home/ValidateClaim.cshtml", claim);
+            ViewData["ValidationErrors"] = validationErrors.Any() ? validationErrors : null;
+            return View();
         }
+
 
 
         //--------------------------------------------------------\
@@ -311,7 +295,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
             {
                 _context.Add(lecturer);
                 await _context.SaveChangesAsync();
-                return View("~/Views/Home/ClaimTrack.cshtml");
+                ViewBag.LecturerID = lecturer.LecturerID; // Pass the LecturerID to the view
+                return View("~/Views/Home/AddUser.cshtml");
             }
             else
             {
@@ -332,7 +317,6 @@ namespace PROG6212_PART2_ST10396724.Controllers
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateClaim(Claim claim)
@@ -343,14 +327,30 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 {
                     _context.Add(claim);
                     await _context.SaveChangesAsync();
+                    ViewBag.ClaimID = claim.ClaimID; // Pass the ClaimID to the view
 
                     // Validate the claim after creation
-                    var validationResult = await ValidateClaim(claim.ClaimID);
+                    var validationErrors = new List<string>();
 
-                    // Check if validation passed or failed
-                    if (ViewBag.ValidationErrors != null && ViewBag.ValidationErrors.Any())
+                    if (claim.hoursWorked < 50)
+                    {
+                        validationErrors.Add("Lecturer must have worked a minimum of 50 hours.");
+                    }
+
+                    if (claim.hoursWorked > 500)
+                    {
+                        validationErrors.Add("Lecturer cannot have worked more than 500 hours.");
+                    }
+
+                    if (claim.hourlyPay > 30)
+                    {
+                        validationErrors.Add("Hourly pay cannot be more than thirty rand.");
+                    }
+
+                    if (validationErrors.Any())
                     {
                         ViewBag.ValidationResult = "Failed";
+                        ViewBag.ValidationErrors = validationErrors;
                     }
                     else
                     {
@@ -365,16 +365,10 @@ namespace PROG6212_PART2_ST10396724.Controllers
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the claim.");
                 }
             }
-            else
-            {
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    _logger.LogError(error.ErrorMessage);
-                }
-                return View("~/Views/Home/AddUser.cshtml", claim);
-            }
-            return View("~/Views/Home/ClaimTrack.cshtml");
+            return View("~/Views/Home/ClaimTrack.cshtml", claim);
         }
+
+
         //----------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------
 
@@ -394,7 +388,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
             {
                 _context.Add(academicManager);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("ClaimTrack");
+                ViewBag.AcademicManagerID = academicManager.AcademicManagerID; // Pass the LecturerID to the view
+                return View("~/Views/Home/AcademicManagerView.cshtml");
             }
             else
             {
@@ -424,7 +419,8 @@ namespace PROG6212_PART2_ST10396724.Controllers
             {
                 _context.Add(progCoOrdinator);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("ClaimTrack");
+                ViewBag.ProgCoOrdinatorID = progCoOrdinator.ProgCoOrdinatorID; // Pass the LecturerID to the view
+                return View("~/Views/Home/ProgCoOrdinator.cshtml");
             }
             else
             {
@@ -432,7 +428,7 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 {
                     _logger.LogError(error.ErrorMessage);
                 }
-                return View("~/Views/Home/ProgCoOrdinator.cshtml", progCoOrdinator);
+                return View("~/Views/Home/Index.cshtml", progCoOrdinator);
             }
         }
         //----------------------------------------------------------------------------------------

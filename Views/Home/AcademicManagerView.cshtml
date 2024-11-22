@@ -4,26 +4,80 @@
     ViewData["Title"] = "Create Academic Manager";
 }
 
-<h2>Create Academic Manager</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Lecturer Contract Claims</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
 
-<form asp-action="CreateAcademicManager" asp-controller="Operations" method="post">
-    <div class="form-group">
-        <label asp-for="AcademicManagerName" class="control-label"></label>
-        <input asp-for="AcademicManagerName" class="form-control" placeholder="Enter Academic Manager Name" />
-        <span asp-validation-for="AcademicManagerName" class="text-danger"></span>
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Create Academic Manager</h1>
+    </header>
+
+    <div class="container">
+        <h2>Create Academic Manager</h2>
+        <form asp-action="CreateAcademicManager" asp-controller="Operations" method="post">
+            <div class="form-group">
+                <label asp-for="AcademicManagerName" class="control-label"></label>
+                <input asp-for="AcademicManagerName" class="form-control" placeholder="Enter Academic Manager Name" />
+                <span asp-validation-for="AcademicManagerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="acaEmail" class="control-label"></label>
+                <input asp-for="acaEmail" class="form-control" placeholder="Enter Email Address" />
+                <span asp-validation-for="acaEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create Academic Manager" class="btn btn-primary" />
+            </div>
+        </form>
+
+        @if (ViewBag.AcademicManagerID != null)
+        {
+            <div class="alert alert-success">
+                Academic Manager created successfully with ID: @ViewBag.AcademicManagerID
+            </div>
+        }
+
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }
     </div>
 
-    <div class="form-group">
-        <label asp-for="acaEmail" class="control-label"></label>
-        <input asp-for="acaEmail" class="form-control" placeholder="Enter Email Address" />
-        <span asp-validation-for="acaEmail" class="text-danger"></span>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
 
-    <div class="form-group">
-        <input type="submit" value="Create Academic Manager" class="btn btn-primary" />
-    </div>
-</form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
