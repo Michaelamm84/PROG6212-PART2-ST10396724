@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 /*
  * Author: Michael AMM.
  * ST10396724
- * ProgPOEPart2
- * 
+ * ProgPOEPart3
+ * Group 1
  */
 
 

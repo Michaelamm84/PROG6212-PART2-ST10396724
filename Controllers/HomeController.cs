@@ -8,10 +8,9 @@ using Microsoft.EntityFrameworkCore;
 /*
  * Author: Michael AMM.
  * ST10396724
- * ProgPOEPart2
- * 
+ * ProgPOEPart3
+ * Group 1
  */
-
 namespace PROG6212_PART2_ST10396724.Controllers
 {
     public class HomeController : Controller
