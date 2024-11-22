@@ -343,7 +343,21 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 {
                     _context.Add(claim);
                     await _context.SaveChangesAsync();
-                    return View("~/Views/Home/AddUser.cshtml");
+
+                    // Validate the claim after creation
+                    var validationResult = await ValidateClaim(claim.ClaimID);
+
+                    // Check if validation passed or failed
+                    if (ViewBag.ValidationErrors != null && ViewBag.ValidationErrors.Any())
+                    {
+                        ViewBag.ValidationResult = "Failed";
+                    }
+                    else
+                    {
+                        ViewBag.ValidationResult = "Success";
+                    }
+
+                    return View("~/Views/Home/ClaimTrack.cshtml", claim);
                 }
                 catch (Exception ex)
                 {
@@ -357,7 +371,7 @@ namespace PROG6212_PART2_ST10396724.Controllers
                 {
                     _logger.LogError(error.ErrorMessage);
                 }
-                return View("~/Views/Home/AddUser.cshtml");
+                return View("~/Views/Home/AddUser.cshtml", claim);
             }
             return View("~/Views/Home/ClaimTrack.cshtml");
         }
